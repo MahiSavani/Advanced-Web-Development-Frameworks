@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Management System</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <h1>&#x2713;&#x2261; Task Management System</h1>
+      <p>Manage your daily tasks easily</p>
+    </header>
+
+    <!-- Add Task Bar -->
+    <main>
+      <div class="add-bar">
+        <input type="text" id="taskTitle" placeholder="Enter Task Title" />
+        <label class="checkbox-label">
+          <input type="checkbox" id="taskCompleted" />
+          Completed
+        </label>
+        <button onclick="addTask()">+ Add</button>
+        <button class="refresh-btn" onclick="loadTasks()">&#x21BB; Refresh</button>
+      </div>
+
+      <!-- Task Table -->
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Task</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="taskBody">
+          <!-- rows injected by script.js -->
+        </tbody>
+      </table>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+     24AIML059_Mahi Savani
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
