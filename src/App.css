@@ -75,6 +75,80 @@
   justify-content: center;
 }
 
+.task-form {
+  display: flex;
+  gap: 0.75rem;
+  max-width: 620px;
+  margin: 2rem auto 1rem;
+}
+
+.task-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.7rem 1rem;
+  border: 1px solid #dde5d3;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.task-list {
+  max-width: 620px;
+  margin: 0 auto 1.5rem;
+  text-align: left;
+}
+
+.task-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 0.65rem;
+  background: #ffffff;
+  border: 1px solid #eee6d8;
+  border-radius: 8px;
+}
+
+.task-item.complete span {
+  color: #8b949e;
+  text-decoration: line-through;
+}
+
+.task-insights {
+  max-width: 620px;
+  margin: 0 auto 1.5rem;
+  padding: 1rem;
+  text-align: left;
+  background: #eef2e6;
+  border-radius: 8px;
+}
+
+.task-insights > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.insight-label {
+  color: #6b6b63;
+  font-size: 0.85rem;
+}
+
+.progress-track {
+  height: 8px;
+  margin: 0.6rem 0;
+  overflow: hidden;
+  background: #dde5d3;
+  border-radius: 999px;
+}
+
+.progress-track span {
+  display: block;
+  height: 100%;
+  background: #5b7a55;
+  border-radius: inherit;
+  transition: width 0.2s ease;
+}
+
 .about h2,
 .skills h2,
 .projects h2,
