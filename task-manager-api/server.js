@@ -8,6 +8,7 @@ const { getActivity, getFailedActivity } = require('./events/activityStore');
 require('./events/listeners/emailListener');
 require('./events/listeners/activityLogListener');
 require('./events/listeners/cacheListener');
+require('./events/listeners/taskNotificationListener');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const CACHE_ENABLED = !['false', '0', 'no'].includes(
@@ -135,7 +136,7 @@ app.get('/tasks/:id', validateId, (req, res) => {
 // POST /tasks — create a new task
 app.post('/tasks', (req, res, next) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, assignedUser } = req.body;
     if (!title) {
       return res.status(400).json({ error: 'Bad Request', message: 'title is required.' });
     }
@@ -143,12 +144,14 @@ app.post('/tasks', (req, res, next) => {
       id: nextId++,
       title,
       description: description || '',
+      assignedUser: assignedUser || 'Unassigned',
       completed: false,
       createdAt: new Date().toISOString(),
     };
     tasks.push(task);
-    publishTaskEvent('task.created', task);
     res.status(201).json({ task });
+    console.log(`[API] POST /tasks response sent at ${new Date().toISOString()}`);
+    publishTaskEvent('task.created', task);
   } catch (err) {
     next(err);
   }
@@ -218,10 +221,9 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal Server Error', message: 'Something went wrong.' });
 });
 
-if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`Task Manager API running on http://localhost:${PORT}`);
-  });
-}
+   module.exports = app;
 
-module.exports = app;
+   if (require.main === module) {
+     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+   }
+
