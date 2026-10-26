@@ -6,6 +6,13 @@ const eventBus = new EventEmitter();
 const MAX_ATTEMPTS = 4;
 const RETRY_DELAY_MS = 100;
 
+eventBus.on('error', (error, context) => {
+  console.error(
+    `[${new Date().toISOString()}] ${context.listenerName} failed for ${context.eventName} on attempt ${context.attempt}:`,
+    error
+  );
+});
+
 function subscribeWithRetry(eventName, listenerName, handler) {
   eventBus.on(eventName, (event) => {
     function attempt(attemptNumber) {
@@ -25,10 +32,11 @@ function subscribeWithRetry(eventName, listenerName, handler) {
         return;
       }
 
-      console.error(
-        `[${new Date().toISOString()}] ${listenerName} failed for ${eventName} after ${MAX_ATTEMPTS} attempts:`,
-        error
-      );
+      eventBus.emit('error', error, {
+        eventName,
+        listenerName,
+        attempt: attemptNumber,
+      });
       recordFailedActivity({
         event: eventName,
         listener: listenerName,
