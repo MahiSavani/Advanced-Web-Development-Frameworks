@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 function TaskInsights({ tasks }) {
   const completed = tasks.filter((task) => task.done).length
   const progress = tasks.length ? Math.round((completed / tasks.length) * 100) : 0
@@ -16,4 +18,5 @@ function TaskInsights({ tasks }) {
   )
 }
 
-export default TaskInsights
+// Skip Home renders caused by draft input changes while tasks stay unchanged.
+export default memo(TaskInsights)

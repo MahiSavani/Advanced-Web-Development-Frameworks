@@ -1,7 +1,9 @@
 import { lazy, Suspense, useState } from 'react'
 import { Link } from 'react-router-dom'
+import RecentActivity from '../components/RecentActivity.jsx'
 
 const TaskInsights = lazy(() => import('./TaskInsights'))
+const TaskStatsChart = lazy(() => import('../components/TaskStatsChart.jsx'))
 
 function Home() {
   const [tasks, setTasks] = useState([
@@ -34,9 +36,13 @@ function Home() {
           </label>
         ))}
       </div>
+      <Suspense fallback={<p className="chart-loading" role="status">Loading task chart...</p>}>
+        <TaskStatsChart tasks={tasks} />
+      </Suspense>
       <Suspense fallback={null}>
         <TaskInsights tasks={tasks} />
       </Suspense>
+      <RecentActivity />
       <Link className="repo-link" to="/projects">View projects</Link>
     </section>
   )

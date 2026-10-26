@@ -1,22 +1,14 @@
-import React, { lazy, Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Header from './pages/Header.jsx'
 import Footer from './pages/Footer.jsx'
-import Home from './pages/Home.jsx'
-const Projects = lazy(() => import('./pages/Projects'))
-const Contact = lazy(() => import('./pages/Contact'))
+import PageLoader from './components/PageLoader.jsx'
+import lazyWithDelay from './utils/lazyWithDelay.js'
 import './App.css'
 
-function DelayedFallback() {
-  const [visible, setVisible] = React.useState(false)
-
-  React.useEffect(() => {
-    const timer = window.setTimeout(() => setVisible(true), 300)
-    return () => window.clearTimeout(timer)
-  }, [])
-
-  return visible ? <div>Loading page...</div> : null
-}
+const Home = lazy(() => import('./pages/Home.jsx'))
+const Projects = lazyWithDelay(() => import('./pages/projects.jsx'))
+const Contact = lazyWithDelay(() => import('./pages/contact.jsx'))
 
 function App() {
   return (
@@ -24,7 +16,7 @@ function App() {
       <Header />
 
       <main className="page-content">
-        <Suspense fallback={<DelayedFallback />}>
+        <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
