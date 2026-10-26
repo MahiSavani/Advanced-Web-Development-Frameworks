@@ -1,0 +1,7 @@
+node_modules
+.env
+.git
+task-manager-api
+my_portfolio
+MATURITY
+dist
