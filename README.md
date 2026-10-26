@@ -2,6 +2,8 @@
 
 A personal portfolio built with React + Vite.
 
+[![CI Pipeline](https://github.com/MahiSavani/Advanced-Web-Development-Frameworks/actions/workflows/ci.yml/badge.svg)](https://github.com/MahiSavani/Advanced-Web-Development-Frameworks/actions/workflows/ci.yml)
+
 ## Getting Started
 
 ```bash
@@ -14,6 +16,10 @@ npm run dev
 - React
 - Vite
 - ESLint
+
+## Practical 12: Continuous Integration
+
+The [Task Manager API CI practical](task-manager-api/docs/practical-12.md) runs automated endpoint tests through GitHub Actions on every push to `main`.
 
 ## Practical 8: Performance Optimization and Lazy Loading
 

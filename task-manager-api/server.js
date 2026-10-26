@@ -218,7 +218,10 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal Server Error', message: 'Something went wrong.' });
 });
 
-// ─── Start Server ─────────────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`Task Manager API running on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Task Manager API running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
